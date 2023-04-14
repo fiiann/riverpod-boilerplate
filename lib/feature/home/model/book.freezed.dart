@@ -20,7 +20,7 @@ Book _$BookFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Book {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   String? get subTitle => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $BookCopyWith<$Res> {
       _$BookCopyWithImpl<$Res, Book>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String? title,
       String? subTitle,
       String? description,
@@ -67,7 +67,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -95,7 +95,7 @@ abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String? title,
       String? subTitle,
       String? description,
@@ -121,7 +121,7 @@ class __$$_BookCopyWithImpl<$Res> extends _$BookCopyWithImpl<$Res, _$_Book>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -156,7 +156,7 @@ class _$_Book extends _Book {
   factory _$_Book.fromJson(Map<String, dynamic> json) => _$$_BookFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final String? title;
   @override
@@ -206,7 +206,7 @@ class _$_Book extends _Book {
 
 abstract class _Book extends Book {
   const factory _Book(
-      {required final int id,
+      {required final String id,
       final String? title,
       final String? subTitle,
       final String? description,
@@ -216,7 +216,7 @@ abstract class _Book extends Book {
   factory _Book.fromJson(Map<String, dynamic> json) = _$_Book.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String? get title;
   @override

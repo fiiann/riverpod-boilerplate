@@ -35,9 +35,14 @@ class HomePage extends ConsumerWidget {
     );
   }
 
+  Widget _widgetError(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Text('error'.tr()),
+    );
+  }
+
   Widget _widgetContent(BuildContext context, WidgetRef ref) {
     final state = ref.watch(booksNotifierProvider);
-
     return state.when(
       loading: () {
         return _widgetLoading(context, ref);
@@ -51,7 +56,7 @@ class HomePage extends ConsumerWidget {
         );
       },
       error: (AppException error) {
-        return _widgetLoading(context, ref);
+        return _widgetError(context, ref);
       },
     );
   }

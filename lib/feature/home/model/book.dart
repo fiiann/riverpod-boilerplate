@@ -14,7 +14,7 @@ Book bookFromJson(String str) =>
 @freezed
 class Book with _$Book {
   const factory Book({
-    required int id,
+    required String id,
     String? title,
     String? subTitle,
     String? description,

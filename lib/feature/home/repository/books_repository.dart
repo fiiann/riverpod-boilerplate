@@ -1,8 +1,6 @@
-import 'package:flutter_boilerplate/feature/home/model/book.dart';
 import 'package:flutter_boilerplate/feature/home/state/books_state.dart';
-import 'package:flutter_boilerplate/shared/http/api_provider.dart';
-import 'package:flutter_boilerplate/shared/http/api_response.dart';
 import 'package:flutter_boilerplate/shared/http/app_exception.dart';
+import 'package:flutter_boilerplate/shared/network/dio/api_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BooksRepositoryProtocol {
@@ -19,28 +17,11 @@ class BooksRepository implements BooksRepositoryProtocol {
 
   @override
   Future<BooksState> fetchBooks() async {
-    final response = await _api.get('books');
-
-    response.when(
-      success: (success) {},
-      error: (error) {
-        return BooksState.error(error);
-      },
-    );
-
-    if (response is APISuccess) {
-      final value = response.value;
-      try {
-        final books = booksFromJson(value as List<dynamic>);
-
-        return BooksState.booksLoaded(books);
-      } catch (e) {
-        return BooksState.error(AppException.errorWithMessage(e.toString()));
-      }
-    } else if (response is APIError) {
-      return BooksState.error(response.exception);
-    } else {
-      return const BooksState.loading();
+    try {
+      final response = await _api.fetchBook();
+      return BooksState.booksLoaded(response);
+    } catch (e) {
+      return BooksState.error(AppException.errorWithMessage(e.toString()));
     }
   }
 }

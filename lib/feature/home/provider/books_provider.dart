@@ -1,4 +1,3 @@
-import 'package:flutter_boilerplate/app/provider/app_start_provider.dart';
 import 'package:flutter_boilerplate/feature/home/repository/books_repository.dart';
 import 'package:flutter_boilerplate/feature/home/state/books_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -28,21 +27,21 @@ class BooksNotifier extends _$BooksNotifier {
     //     error: (e, st) {},
     //     loading: () {});
 
-    ref.listen(appStartNotifierProvider, (previous, next) {
-      next.when(
-        data: (data) {
-          data.maybeWhen(
-            authenticated: () {
-              _fetchBooks();
-            },
-            orElse: () {},
-          );
-        },
-        error: (e, st) {},
-        loading: () {},
-      );
-    });
-
+    // ref.listen(appStartNotifierProvider, (previous, next) {
+    //   next.when(
+    //     data: (data) {
+    //       data.maybeWhen(
+    //         authenticated: () {
+    //           _fetchBooks();
+    //         },
+    //         orElse: () {},
+    //       );
+    //     },
+    //     error: (e, st) {},
+    //     loading: () {},
+    //   );
+    // });
+    _fetchBooks();
     return const BooksState.loading();
   }
 
