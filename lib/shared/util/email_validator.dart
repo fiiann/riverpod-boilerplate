@@ -1,11 +1,11 @@
 import 'dart:core';
 
-enum type { None, Alphabetic, Numeric, AlphaNumeric }
+enum Type { none, alphabetic, numeric, alphaNumeric }
 
 class EmailValidator {
   static int _index = 0;
-  static const String _atomCharacters = "!#\$%&'*+-/=?^_`{|}~";
-  static type _domainType = type.None;
+  static const String _atomCharacters = r"!#$%&'*+-/=?^_`{|}~";
+  static Type _domainType = Type.none;
 
   static bool _isDigit(String c) {
     return c.codeUnitAt(0) >= 48 && c.codeUnitAt(0) <= 57;
@@ -29,13 +29,13 @@ class EmailValidator {
   static bool _isDomain(String c, bool allowInternational) {
     if (c.codeUnitAt(0) < 128) {
       if (_isLetter(c) || c == '-') {
-        _domainType = type.Alphabetic;
+        _domainType = Type.alphabetic;
 
         return true;
       }
 
       if (_isDigit(c)) {
-        _domainType = type.Numeric;
+        _domainType = Type.numeric;
 
         return true;
       }
@@ -44,7 +44,7 @@ class EmailValidator {
     }
 
     if (allowInternational) {
-      _domainType = type.Alphabetic;
+      _domainType = Type.alphabetic;
 
       return true;
     }
@@ -55,29 +55,29 @@ class EmailValidator {
   static bool _isDomainStart(String c, bool allowInternational) {
     if (c.codeUnitAt(0) < 128) {
       if (_isLetter(c)) {
-        _domainType = type.Alphabetic;
+        _domainType = Type.alphabetic;
 
         return true;
       }
 
       if (_isDigit(c)) {
-        _domainType = type.Numeric;
+        _domainType = Type.numeric;
 
         return true;
       }
 
-      _domainType = type.None;
+      _domainType = Type.none;
 
       return false;
     }
 
     if (allowInternational) {
-      _domainType = type.Alphabetic;
+      _domainType = Type.alphabetic;
 
       return true;
     }
 
-    _domainType = type.None;
+    _domainType = Type.none;
 
     return false;
   }
@@ -110,7 +110,10 @@ class EmailValidator {
   }
 
   static bool _skipDomain(
-      String text, bool allowTopLevelDomains, bool allowInternational) {
+    String text,
+    bool allowTopLevelDomains,
+    bool allowInternational,
+  ) {
     if (!_skipSubDomain(text, allowInternational)) {
       return false;
     }
@@ -131,8 +134,9 @@ class EmailValidator {
       return false;
     }
 
-    // Note: by allowing AlphaNumeric, we get away with not having to support punycode.
-    if (_domainType == type.Numeric) {
+    // Note: by allowing AlphaNumeric, we get away with not having
+    // to support punycode.
+    if (_domainType == Type.numeric) {
       return false;
     }
 
@@ -150,7 +154,7 @@ class EmailValidator {
         return false;
       }
 
-      if (text[_index] == '\\') {
+      if (text[_index] == r'\') {
         escaped = !escaped;
       } else if (!escaped) {
         if (text[_index] == '"') {
@@ -293,11 +297,15 @@ class EmailValidator {
   /// allow addresses with top-level domains like `email@cheq`.
   ///
   /// If [allowInternational] is `true`, then the validator
-  /// will use the newer International Email standards for validating the email address.
+  /// will use the newer International Email standards for
+  /// validating the email address.
   ///
   /// Throws an [ArgumentError] if the email is null.
-  static bool validate(String? email,
-      [bool allowTopLevelDomains = false, bool allowInternational = true]) {
+  static bool validate(
+    String? email, [
+    bool allowTopLevelDomains = false,
+    bool allowInternational = true,
+  ]) {
     _index = 0;
 
     if (email == null) {

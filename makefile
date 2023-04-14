@@ -28,21 +28,18 @@ watch: ## Watches the files for changes
 	@echo "╠ Watching the project..."
 	@flutter pub run build_runner watch --delete-conflicting-outputs
 
-build: ## Build the files for changes
-	@echo "╠ Building the project..."
-	@flutter pub run build_runner build --delete-conflicting-outputs
+generate: ## Build the files for changes
+	flutter pub run build_runner build --delete-conflicting-outputs
 
 
 gen: ## Generates the assets
-	@echo "╠ Generating the assets..."
-	@flutter pub get
-	@flutter packages pub run build_runner build
+	flutter packages pub run build_runner build
 
 format: ## Formats the code
-	@echo "╠ Formatting the code"
-	@dart format lib .
-	@flutter pub run import_sorter:main
-	@flutter format lib
+	echo "╠ Formatting the code"
+	dart format lib .
+	flutter pub run import_sorter:main
+	flutter format lib
 
 lint: ## Lints the code
 	@echo "╠ Verifying code..."
