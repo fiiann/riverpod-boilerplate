@@ -18,7 +18,6 @@ class AuthNotifier extends _$AuthNotifier {
   late final AuthRepository _loginRepository = ref.read(authRepositoryProvider);
 
   Future<void> login(String email, String password) async {
-    print(email);
     state = await _loginRepository.login(email, password);
   }
 

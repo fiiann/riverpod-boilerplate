@@ -85,6 +85,11 @@ build_apk_prod: ## Runs the mobile application in prod
 	@flutter pub get
 	@flutter build apk --flavor production -t lib/main_production.dart
 
+build_ios_prod: ## Runs the mobile application in prod
+	@flutter clean
+	@flutter pub get
+	@flutter build ios --flavor production -t lib/main_production.dart
+
 purge: ## Purges the Flutter 
 	@pod deintegrate
 	@flutter clean

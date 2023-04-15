@@ -14,10 +14,20 @@ _$_Book _$$_BookFromJson(Map<String, dynamic> json) => _$_Book(
       preview: json['preview'] as String?,
     );
 
-Map<String, dynamic> _$$_BookToJson(_$_Book instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'subTitle': instance.subTitle,
-      'description': instance.description,
-      'preview': instance.preview,
-    };
+Map<String, dynamic> _$$_BookToJson(_$_Book instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('subTitle', instance.subTitle);
+  writeNotNull('description', instance.description);
+  writeNotNull('preview', instance.preview);
+  return val;
+}

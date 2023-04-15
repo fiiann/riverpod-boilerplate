@@ -12,9 +12,7 @@ class _ApiProvider implements ApiProvider {
   _ApiProvider(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://64391e351b9a7dd5c95f638b.mockapi.io/';
-  }
+  });
 
   final Dio _dio;
 

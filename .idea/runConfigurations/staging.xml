@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="staging" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="additionalArgs" value="--dart-define BASE_URL=&quot;https://64391e351b9a7dd5c95f638b.mockapi.io/&quot;" />
     <option name="buildFlavor" value="staging" />
     <option name="filePath" value="$PROJECT_DIR$/lib/main_staging.dart" />
     <method v="2" />

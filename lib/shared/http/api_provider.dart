@@ -9,7 +9,6 @@ import 'package:flutter_boilerplate/shared/http/api_response.dart';
 import 'package:flutter_boilerplate/shared/http/app_exception.dart';
 import 'package:flutter_boilerplate/shared/http/interceptor/dio_connectivity_request_retrier.dart';
 import 'package:flutter_boilerplate/shared/http/interceptor/retry_interceptor.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -41,10 +40,6 @@ class ApiProvider {
 
     if (kDebugMode) {
       _dio.interceptors.add(PrettyDioLogger(requestBody: true));
-    }
-
-    if (dotenv.env['BASE_URL'] != null) {
-      _baseUrl = dotenv.env['BASE_URL']!;
     }
   }
 
