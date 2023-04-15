@@ -1,5 +1,5 @@
 import 'package:flutter_boilerplate/feature/auth/repository/auth_repository.dart';
-import 'package:flutter_boilerplate/feature/auth/repository/token_repository.dart';
+import 'package:flutter_boilerplate/feature/auth/repository/user_repository.dart';
 import 'package:flutter_boilerplate/feature/auth/state/auth_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -25,7 +25,7 @@ class AuthNotifier extends _$AuthNotifier {
     state = await _loginRepository.signUp(name, email, password);
   }
 
-  late final TokenRepository _tokenRepository =
+  late final UserRepository _tokenRepository =
       ref.read(tokenRepositoryProvider);
 
   Future<void> logout() async {

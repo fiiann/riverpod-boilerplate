@@ -1,31 +1,33 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter_boilerplate/feature/auth/model/token.dart';
+import 'package:flutter_boilerplate/feature/auth/model/login_response.dart';
 import 'package:flutter_boilerplate/shared/constants/store_key.dart';
 import 'package:flutter_boilerplate/shared/util/platform_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class TokenRepositoryProtocol {
+abstract class UserRepositoryProtocol {
   Future<void> remove();
 
-  Future<void> saveToken(Token token);
+  Future<void> saveToken(LoginResponse token);
 
-  Future<Token?> fetchToken();
+  Future<LoginResponse?> fetchToken();
 }
 
-final tokenRepositoryProvider = Provider(TokenRepository.new);
+final tokenRepositoryProvider = Provider(UserRepository.new);
 
-class TokenRepository implements TokenRepositoryProtocol {
-  TokenRepository(this._ref);
+class UserRepository implements UserRepositoryProtocol {
+  UserRepository(this._ref);
 
   late final PlatformType _platform = _ref.read(platformTypeProvider);
   final Ref _ref;
-  Token? _token;
+  LoginResponse? _user;
 
   @override
   Future<void> remove() async {
-    _token = null;
+    _user = null;
     final prefs = await SharedPreferences.getInstance();
 
     if (_platform == PlatformType.iOS ||
@@ -33,31 +35,29 @@ class TokenRepository implements TokenRepositoryProtocol {
         _platform == PlatformType.linux) {
       const storage = FlutterSecureStorage();
       try {
-        await storage.delete(key: StoreKey.token.toString());
+        await storage.delete(key: StoreKey.user.toString());
       } on Exception catch (e) {
         if (kDebugMode) {
           print('error : $e');
         }
       }
     } else {
-      await prefs.remove(StoreKey.token.toString());
+      await prefs.remove(StoreKey.user.toString());
     }
-
-    await prefs.remove(StoreKey.user.toString());
   }
 
   @override
-  Future<void> saveToken(Token token) async {
+  Future<void> saveToken(LoginResponse user) async {
     final prefs = await SharedPreferences.getInstance();
-    _token = token;
+    _user = user;
     if (_platform == PlatformType.iOS ||
         _platform == PlatformType.android ||
         _platform == PlatformType.linux) {
       const storage = FlutterSecureStorage();
       try {
         await storage.write(
-          key: StoreKey.token.toString(),
-          value: tokenToJson(token),
+          key: StoreKey.user.toString(),
+          value: jsonEncode(user.toJson()),
         );
       } on Exception catch (e) {
         if (kDebugMode) {
@@ -65,35 +65,40 @@ class TokenRepository implements TokenRepositoryProtocol {
         }
       }
     } else {
-      await prefs.setString(StoreKey.token.toString(), tokenToJson(token));
+      await prefs.setString(
+        StoreKey.user.toString(),
+        jsonEncode(user.toJson()),
+      );
     }
   }
 
   @override
-  Future<Token?> fetchToken() async {
+  Future<LoginResponse?> fetchToken() async {
     // if (_token != null) {
     //   return _token;
     // }
 
-    String? tokenValue;
+    String? userValue;
 
     if (_platform == PlatformType.iOS ||
         _platform == PlatformType.android ||
         _platform == PlatformType.linux) {
       const storage = FlutterSecureStorage();
-      tokenValue = await storage.read(key: StoreKey.token.toString());
+      userValue = await storage.read(key: StoreKey.user.toString());
     } else {
       final prefs = await SharedPreferences.getInstance();
-      tokenValue = prefs.getString(StoreKey.token.toString());
+      userValue = prefs.getString(StoreKey.user.toString());
     }
     try {
-      if (tokenValue != null) {
-        _token = tokenFromJson(tokenValue);
+      if (userValue != null) {
+        _user = LoginResponse.fromJson(
+          json.decode(userValue) as Map<String, dynamic>,
+        );
       }
     } on Exception {
-      return _token;
+      return _user;
     }
 
-    return _token;
+    return _user;
   }
 }

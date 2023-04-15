@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_boilerplate/feature/auth/repository/token_repository.dart';
+import 'package:flutter_boilerplate/feature/auth/repository/user_repository.dart';
 import 'package:flutter_boilerplate/shared/http/api_response.dart';
 import 'package:flutter_boilerplate/shared/http/app_exception.dart';
 import 'package:flutter_boilerplate/shared/http/interceptor/dio_connectivity_request_retrier.dart';
@@ -47,7 +47,7 @@ class ApiProvider {
 
   late Dio _dio;
 
-  late final TokenRepository _tokenRepository =
+  late final UserRepository _tokenRepository =
       _ref.read(tokenRepositoryProvider);
 
   late String _baseUrl;

@@ -1,12 +1,11 @@
-import 'dart:convert';
-
-import 'package:flutter_boilerplate/feature/auth/model/token.dart';
-import 'package:flutter_boilerplate/feature/auth/repository/token_repository.dart';
+import 'package:flutter_boilerplate/feature/auth/model/login_response.dart';
+import 'package:flutter_boilerplate/feature/auth/repository/user_repository.dart';
 import 'package:flutter_boilerplate/feature/auth/state/auth_state.dart';
-import 'package:flutter_boilerplate/shared/http/api_provider.dart';
 import 'package:flutter_boilerplate/shared/http/app_exception.dart';
 import 'package:flutter_boilerplate/shared/util/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../shared/network/dio/api_provider.dart';
 
 abstract class AuthRepositoryProtocol {
   Future<AuthState> login(String email, String password);
@@ -38,22 +37,35 @@ class AuthRepository implements AuthRepositoryProtocol {
       'email': email,
       'password': password,
     };
-    final loginResponse = await _api.post('login', jsonEncode(params));
-
-    return loginResponse.when(
-      success: (success) async {
+    final request = LoginRequest(email: email, password: password);
+    try {
+      final loginResponse = await _api.login(request: request);
+      if (loginResponse.email == email) {
         final tokenRepository = _ref.read(tokenRepositoryProvider);
 
-        final token = Token.fromJson(success as Map<String, dynamic>);
-
-        await tokenRepository.saveToken(token);
+        await tokenRepository.saveToken(loginResponse);
 
         return const AuthState.loggedIn();
-      },
-      error: (error) {
-        return AuthState.error(error);
-      },
-    );
+      } else {
+        return const AuthState.error(AppException.errorWithMessage('error'));
+      }
+    } catch (e) {
+      return AuthState.error(AppException.errorWithMessage(e.toString()));
+    }
+    // return loginResponse.when(
+    //   success: (success) async {
+    //     final tokenRepository = _ref.read(tokenRepositoryProvider);
+    //
+    //     final token = Token.fromJson(success as Map<String, dynamic>);
+    //
+    //     await tokenRepository.saveToken(token);
+    //
+    //     return const AuthState.loggedIn();
+    //   },
+    //   error: (error) {
+    //     return AuthState.error(error);
+    //   },
+    // );
   }
 
   @override
@@ -73,7 +85,7 @@ class AuthRepository implements AuthRepositoryProtocol {
       'email': email,
       'password': password,
     };
-    final loginResponse = await _api.post('sign_up', jsonEncode(params));
+    /*final loginResponse = await _api.post('sign_up', jsonEncode(params));
 
     return loginResponse.when(
       success: (success) async {
@@ -88,6 +100,7 @@ class AuthRepository implements AuthRepositoryProtocol {
       error: (error) {
         return AuthState.error(error);
       },
-    );
+    );*/
+    return AuthState.error(AppException.errorWithMessage('error'));
   }
 }

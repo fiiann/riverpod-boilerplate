@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_boilerplate/feature/auth/repository/token_repository.dart';
+import 'package:flutter_boilerplate/feature/auth/repository/user_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -30,7 +30,7 @@ final dioRepositoryProvider = Provider<Dio>((ref) {
         late final tokenRepository = ref.read(tokenRepositoryProvider);
         final appToken = await tokenRepository.fetchToken();
         if (appToken != null) {
-          options.headers['Authorization'] = 'Bearer ${appToken.token}';
+          // options.headers['Authorization'] = 'Bearer ${appToken.token}';
           return handler.next(options);
         }
 
