@@ -10,10 +10,10 @@ part 'api_provider.g.dart';
 
 final apiProvider = Provider<ApiProvider>((ref) {
   final dio = ref.watch(dioRepositoryProvider);
-  return ApiProvider(dio);
+  return ApiProvider(dio, baseUrl: Endpoint.baseUrl);
 });
 
-@RestApi(baseUrl: Endpoint.baseUrl)
+@RestApi()
 abstract class ApiProvider {
   factory ApiProvider(Dio dio, {String baseUrl}) = _ApiProvider;
 

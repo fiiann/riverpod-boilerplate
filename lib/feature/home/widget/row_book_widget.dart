@@ -10,7 +10,7 @@ class RowBookWidget extends StatelessWidget {
     return InkResponse(
       child: ListTile(
         leading: Text(
-          '${book.id}',
+          book.id,
           style: const TextStyle(fontSize: 10),
         ),
         title: Text(book.title ?? ''),

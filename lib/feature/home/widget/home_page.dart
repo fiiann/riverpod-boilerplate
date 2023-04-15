@@ -1,9 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/home/provider/books_provider.dart';
 import 'package:flutter_boilerplate/feature/home/widget/row_book_widget.dart';
 import 'package:flutter_boilerplate/shared/http/app_exception.dart';
 import 'package:flutter_boilerplate/shared/route/app_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
@@ -11,10 +11,11 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final local = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
-        title: Text('home'.tr()),
+        title: Text(local.home),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.adjust),
@@ -25,27 +26,39 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: _widgetContent(context, ref),
+      body: _widgetContent(context, ref, local),
     );
   }
 
-  Widget _widgetLoading(BuildContext context, WidgetRef ref) {
+  Widget _widgetLoading(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations local,
+  ) {
     return Center(
-      child: Text('loading'.tr()),
+      child: Text(local.loading),
     );
   }
 
-  Widget _widgetError(BuildContext context, WidgetRef ref) {
+  Widget _widgetError(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations local,
+  ) {
     return Center(
-      child: Text('error'.tr()),
+      child: Text(local.error),
     );
   }
 
-  Widget _widgetContent(BuildContext context, WidgetRef ref) {
+  Widget _widgetContent(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations local,
+  ) {
     final state = ref.watch(booksNotifierProvider);
     return state.when(
       loading: () {
-        return _widgetLoading(context, ref);
+        return _widgetLoading(context, ref, local);
       },
       booksLoaded: (books) {
         return ListView.builder(
@@ -56,7 +69,7 @@ class HomePage extends ConsumerWidget {
         );
       },
       error: (AppException error) {
-        return _widgetError(context, ref);
+        return _widgetError(context, ref, local);
       },
     );
   }

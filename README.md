@@ -122,7 +122,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 @override
 Widget build(BuildContext context) {
-  return Text("helloWorld".tr());
+  return Text("helloWorld");
 }
 ```
 
