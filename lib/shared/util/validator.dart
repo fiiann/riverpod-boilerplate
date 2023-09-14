@@ -22,7 +22,7 @@ class Validator {
     if (value.isEmpty) {
       return false;
     }
-    if (value.length < 5) {
+    if (value.length < 8) {
       return false;
     }
     // bool passValid = RegExp(

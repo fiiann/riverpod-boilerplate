@@ -8,8 +8,7 @@ part 'app_start_provider.g.dart';
 
 @riverpod
 class AppStartNotifier extends _$AppStartNotifier {
-  late final UserRepository _tokenRepository =
-      ref.read(tokenRepositoryProvider);
+  late final UserRepository _userRepository = ref.read(tokenRepositoryProvider);
 
   @override
   FutureOr<AppStartState> build() async {
@@ -25,7 +24,7 @@ class AppStartNotifier extends _$AppStartNotifier {
       return const AppStartState.unauthenticated();
     }
 
-    final token = await _tokenRepository.fetchToken();
+    final token = await _userRepository.fetchToken();
     if (token != null) {
       return const AppStartState.authenticated();
     } else {

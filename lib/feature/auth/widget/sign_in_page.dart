@@ -1,96 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
 import 'package:flutter_boilerplate/shared/route/app_router.dart';
+import 'package:flutter_boilerplate/shared/widget/custom_text_button.dart';
+import 'package:flutter_boilerplate/shared/widget/form.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SignInPage extends ConsumerWidget {
   SignInPage({super.key});
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
+  final formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final local = AppLocalizations.of(context)!;
+    // final auth = ref.watch(authNotifierProvider);
+
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 150),
-            Text(
-              local.email,
-              style: TextStyle(
-                color: Colors.grey[800],
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-              ),
+        child: SingleChildScrollView(
+          child: FormBuilder(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 4,
+                ),
+                title(local),
+                const SizedBox(height: 20),
+                const CustomFormField(
+                  name: 'email',
+                  labelText: 'Email',
+                ),
+                const SizedBox(height: 10),
+                const CustomFormField(
+                  name: 'password',
+                  labelText: 'Password',
+                  isPassword: true,
+                ),
+                const SizedBox(height: 30),
+                CustomTextButton(
+                  buttonText: local.sign_in,
+                  onClick: () {
+                    submitLogin(ref);
+                  },
+                ),
+                const SizedBox(height: 30),
+                CustomTextButton(
+                  buttonText: local.sign_up,
+                  onClick: () {
+                    ref.read(routerProvider).push(SignUpRoute.path);
+                  },
+                ),
+              ],
             ),
-            Form(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: local.email,
-                    ),
-                    controller: _emailController,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: local.password,
-                    ),
-                    controller: _passwordController,
-                    obscureText: true,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      const SizedBox(height: 30),
-                      _widgetSignInButton(context, ref, local),
-                      const SizedBox(height: 30),
-                      _widgetSignUpButton(context, ref, local),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _widgetSignInButton(
-    BuildContext context,
-    WidgetRef ref,
-    AppLocalizations local,
-  ) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          ref
-              .read(authNotifierProvider.notifier)
-              .login(_emailController.text, _passwordController.text);
-        },
-        child: Text(local.sign_in),
+  Text title(AppLocalizations local) {
+    return Text(
+      local.sign_in,
+      style: TextStyle(
+        color: Colors.grey[800],
+        fontWeight: FontWeight.bold,
+        fontSize: 40,
       ),
     );
   }
 
-  Widget _widgetSignUpButton(
-    BuildContext context,
-    WidgetRef ref,
-    AppLocalizations local,
-  ) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          ref.read(routerProvider).go(SignUpRoute.path);
-        },
-        child: Text(local.sign_up),
-      ),
-    );
+  void submitLogin(WidgetRef ref) {
+    if (formKey.currentState != null && !formKey.currentState!.validate()) {
+      return;
+    }
+
+    final email = formKey.currentState!.fields['email']?.value as String;
+    final password = formKey.currentState!.fields['password']?.value as String;
+    ref.read(authNotifierProvider.notifier).login(email, password);
   }
 }

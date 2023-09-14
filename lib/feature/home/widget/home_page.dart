@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
 import 'package:flutter_boilerplate/feature/home/provider/books_provider.dart';
 import 'package:flutter_boilerplate/feature/home/widget/row_book_widget.dart';
 import 'package:flutter_boilerplate/shared/http/app_exception.dart';
-import 'package:flutter_boilerplate/shared/route/app_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,8 +20,8 @@ class HomePage extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.adjust),
             onPressed: () {
-              ref.read(routerProvider).go(SignInRoute.path);
-              //ref.read(authNotifierProvider.notifier).logout();
+              // ref.read(routerProvider).go(SignInRoute.path);
+              ref.read(authNotifierProvider.notifier).logout();
             },
           ),
         ],

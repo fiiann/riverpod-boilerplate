@@ -23,20 +23,6 @@ class AuthRepository implements AuthRepositoryProtocol {
 
   @override
   Future<AuthState> login(String email, String password) async {
-    if (!Validator.isValidPassWord(password)) {
-      return const AuthState.error(
-        AppException.errorWithMessage('Minimum 8 characters required'),
-      );
-    }
-    if (!Validator.isValidEmail(email)) {
-      return const AuthState.error(
-        AppException.errorWithMessage('Please enter a valid email address'),
-      );
-    }
-    final params = {
-      'email': email,
-      'password': password,
-    };
     final request = LoginRequest(email: email, password: password);
     try {
       final loginResponse = await _api.login(request: request);
@@ -80,11 +66,6 @@ class AuthRepository implements AuthRepositoryProtocol {
         AppException.errorWithMessage('Please enter a valid email address'),
       );
     }
-    final params = {
-      'name': name,
-      'email': email,
-      'password': password,
-    };
     /*final loginResponse = await _api.post('sign_up', jsonEncode(params));
 
     return loginResponse.when(
@@ -101,6 +82,6 @@ class AuthRepository implements AuthRepositoryProtocol {
         return AuthState.error(error);
       },
     );*/
-    return AuthState.error(AppException.errorWithMessage('error'));
+    return const AuthState.error(AppException.errorWithMessage('error'));
   }
 }

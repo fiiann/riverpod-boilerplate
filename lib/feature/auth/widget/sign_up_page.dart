@@ -17,7 +17,7 @@ class SignUpPage extends ConsumerWidget {
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
-          children: <Widget>[
+          children: [
             const SizedBox(height: 150),
             Text(
               local.sign_up,
