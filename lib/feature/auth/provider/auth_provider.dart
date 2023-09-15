@@ -1,3 +1,4 @@
+import 'package:flutter_boilerplate/app/state/app_start_state.dart';
 import 'package:flutter_boilerplate/feature/auth/repository/auth_repository.dart';
 import 'package:flutter_boilerplate/feature/auth/repository/user_repository.dart';
 import 'package:flutter_boilerplate/feature/auth/state/auth_state.dart';
@@ -12,16 +13,18 @@ part 'auth_provider.g.dart';
 class AuthNotifier extends _$AuthNotifier {
   @override
   AuthState build() {
-    return const AuthState.initial();
+    return const AuthState();
   }
 
   late final AuthRepository _loginRepository = ref.read(authRepositoryProvider);
 
   Future<void> login(String email, String password) async {
+    state = state.copyWith(status: Status.loading);
     state = await _loginRepository.login(email, password);
   }
 
   Future<void> signUp(String name, String email, String password) async {
+    state = state.copyWith(status: Status.loading);
     state = await _loginRepository.signUp(name, email, password);
   }
 
@@ -30,6 +33,9 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<void> logout() async {
     await _tokenRepository.remove();
-    state = const AuthState.loggedOut();
+    state = state.copyWith(
+      status: Status.initial,
+      authStatus: const AppStartState.unauthenticated(),
+    );
   }
 }

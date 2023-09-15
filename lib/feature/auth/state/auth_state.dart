@@ -1,17 +1,15 @@
-import 'package:flutter_boilerplate/shared/http/app_exception.dart';
+import 'package:flutter_boilerplate/app/state/app_start_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_state.freezed.dart';
 
+enum Status { initial, loading, success, failed }
+
 @freezed
 class AuthState with _$AuthState {
-  const factory AuthState.initial() = _Initial;
-
-  const factory AuthState.loading() = _Loading;
-
-  const factory AuthState.loggedIn() = AuthStateLoggedIn;
-
-  const factory AuthState.loggedOut() = AuthStateLoggedOut;
-
-  const factory AuthState.error(AppException error) = _Error;
+  const factory AuthState({
+    @Default(Status.initial) Status status,
+    @Default(AppStartState.initial()) AppStartState authStatus,
+    String? message,
+  }) = _AuthState;
 }

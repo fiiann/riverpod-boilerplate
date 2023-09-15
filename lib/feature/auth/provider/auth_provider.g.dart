@@ -6,7 +6,7 @@ part of 'auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authNotifierHash() => r'891ecfc1561487bba5be84b4fcc1dff2d7d7c258';
+String _$authNotifierHash() => r'ae5d3fd7dc8c84da25ef00df9a52e3bbd5810ecd';
 
 /// See also [AuthNotifier].
 @ProviderFor(AuthNotifier)
@@ -21,4 +21,5 @@ final authNotifierProvider =
 );
 
 typedef _$AuthNotifier = AutoDisposeNotifier<AuthState>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -29,8 +29,10 @@ watch: ## Watches the files for changes
 	@flutter pub run build_runner watch --delete-conflicting-outputs
 
 generate: ## Build the files for changes
-	flutter pub run build_runner build --delete-conflicting-outputs
+	dart run build_runner build --delete-conflicting-outputs
 
+generate-file:
+	dart run build_runner build --build-filter="lib/shared/route/app_router.g.dart"
 
 gen: ## Generates the assets
 	flutter packages pub run build_runner build

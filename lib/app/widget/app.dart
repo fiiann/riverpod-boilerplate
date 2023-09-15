@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/app/state/app_start_state.dart';
+import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
 import 'package:flutter_boilerplate/shared/route/app_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +11,13 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
-
+    ref.listen(authNotifierProvider, (previous, next) {
+      if (next.authStatus == const AppStartState.authenticated()) {
+        ref.read(routerProvider).go(HomeRoute.path);
+      } else {
+        ref.read(routerProvider).go(SignInRoute.path);
+      }
+    });
     return MaterialApp.router(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

@@ -43,11 +43,15 @@ class CustomTextButton extends StatelessWidget {
       height: height,
       width: width,
       constraints: const BoxConstraints(minHeight: 30, minWidth: 30),
-      child: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : ElevatedButton(
-              onPressed: () => disable ? null : onClick(),
-              child: Row(
+      child: ElevatedButton(
+        onPressed: () => disable ? null : onClick(),
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              )
+            : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (prefixIcon != null) prefixIcon!,
@@ -59,7 +63,7 @@ class CustomTextButton extends StatelessWidget {
                   if (suffixIcon != null) suffixIcon!,
                 ],
               ),
-            ),
+      ),
     );
   }
 }

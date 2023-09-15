@@ -12,7 +12,6 @@ class AppStartPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appStartNotifierProvider);
-
     return state.when(
       data: (data) {
         return data.maybeWhen(

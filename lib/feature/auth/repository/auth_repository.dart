@@ -1,8 +1,7 @@
+import 'package:flutter_boilerplate/app/state/app_start_state.dart';
 import 'package:flutter_boilerplate/feature/auth/model/login_response.dart';
 import 'package:flutter_boilerplate/feature/auth/repository/user_repository.dart';
 import 'package:flutter_boilerplate/feature/auth/state/auth_state.dart';
-import 'package:flutter_boilerplate/shared/http/app_exception.dart';
-import 'package:flutter_boilerplate/shared/util/validator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../shared/network/dio/api_provider.dart';
@@ -31,12 +30,21 @@ class AuthRepository implements AuthRepositoryProtocol {
 
         await tokenRepository.saveToken(loginResponse);
 
-        return const AuthState.loggedIn();
+        return const AuthState(
+          status: Status.success,
+          authStatus: AppStartState.authenticated(),
+        );
       } else {
-        return const AuthState.error(AppException.errorWithMessage('error'));
+        return const AuthState(
+          status: Status.failed,
+          authStatus: AppStartState.unauthenticated(),
+        );
       }
     } catch (e) {
-      return AuthState.error(AppException.errorWithMessage(e.toString()));
+      return const AuthState(
+        status: Status.failed,
+        authStatus: AppStartState.unauthenticated(),
+      );
     }
     // return loginResponse.when(
     //   success: (success) async {
@@ -56,16 +64,7 @@ class AuthRepository implements AuthRepositoryProtocol {
 
   @override
   Future<AuthState> signUp(String name, String email, String password) async {
-    if (!Validator.isValidPassWord(password)) {
-      return const AuthState.error(
-        AppException.errorWithMessage('Minimum 8 characters required'),
-      );
-    }
-    if (!Validator.isValidEmail(email)) {
-      return const AuthState.error(
-        AppException.errorWithMessage('Please enter a valid email address'),
-      );
-    }
+    // TODO(fiiann): SIGNUP REPOSITORY
     /*final loginResponse = await _api.post('sign_up', jsonEncode(params));
 
     return loginResponse.when(
@@ -82,6 +81,6 @@ class AuthRepository implements AuthRepositoryProtocol {
         return AuthState.error(error);
       },
     );*/
-    return const AuthState.error(AppException.errorWithMessage('error'));
+    return const AuthState(status: Status.success);
   }
 }

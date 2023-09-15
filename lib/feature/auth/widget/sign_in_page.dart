@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/auth/provider/auth_provider.dart';
+import 'package:flutter_boilerplate/feature/auth/state/auth_state.dart';
 import 'package:flutter_boilerplate/shared/route/app_router.dart';
 import 'package:flutter_boilerplate/shared/widget/custom_text_button.dart';
 import 'package:flutter_boilerplate/shared/widget/form.dart';
@@ -13,7 +14,7 @@ class SignInPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final local = AppLocalizations.of(context)!;
-    // final auth = ref.watch(authNotifierProvider);
+    final auth = ref.watch(authNotifierProvider);
 
     return Scaffold(
       body: Container(
@@ -41,6 +42,7 @@ class SignInPage extends ConsumerWidget {
                 ),
                 const SizedBox(height: 30),
                 CustomTextButton(
+                  isLoading: auth.status == Status.loading,
                   buttonText: local.sign_in,
                   onClick: () {
                     submitLogin(ref);
