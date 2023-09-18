@@ -16,7 +16,7 @@ class Book with _$Book {
   const factory Book({
     required String id,
     String? title,
-    String? subTitle,
+    @JsonKey(name: 'subtitle') String? subTitle,
     String? description,
     String? preview,
   }) = _Book;

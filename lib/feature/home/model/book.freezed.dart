@@ -22,6 +22,7 @@ Book _$BookFromJson(Map<String, dynamic> json) {
 mixin _$Book {
   String get id => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
+  @JsonKey(name: "subtitle")
   String? get subTitle => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get preview => throw _privateConstructorUsedError;
@@ -39,7 +40,7 @@ abstract class $BookCopyWith<$Res> {
   $Res call(
       {String id,
       String? title,
-      String? subTitle,
+      @JsonKey(name: "subtitle") String? subTitle,
       String? description,
       String? preview});
 }
@@ -97,7 +98,7 @@ abstract class _$$_BookCopyWith<$Res> implements $BookCopyWith<$Res> {
   $Res call(
       {String id,
       String? title,
-      String? subTitle,
+      @JsonKey(name: "subtitle") String? subTitle,
       String? description,
       String? preview});
 }
@@ -148,7 +149,7 @@ class _$_Book extends _Book {
   const _$_Book(
       {required this.id,
       this.title,
-      this.subTitle,
+      @JsonKey(name: "subtitle") this.subTitle,
       this.description,
       this.preview})
       : super._();
@@ -160,6 +161,7 @@ class _$_Book extends _Book {
   @override
   final String? title;
   @override
+  @JsonKey(name: "subtitle")
   final String? subTitle;
   @override
   final String? description;
@@ -208,7 +210,7 @@ abstract class _Book extends Book {
   const factory _Book(
       {required final String id,
       final String? title,
-      final String? subTitle,
+      @JsonKey(name: "subtitle") final String? subTitle,
       final String? description,
       final String? preview}) = _$_Book;
   const _Book._() : super._();
@@ -220,6 +222,7 @@ abstract class _Book extends Book {
   @override
   String? get title;
   @override
+  @JsonKey(name: "subtitle")
   String? get subTitle;
   @override
   String? get description;

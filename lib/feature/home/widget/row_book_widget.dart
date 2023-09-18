@@ -14,8 +14,9 @@ class RowBookWidget extends StatelessWidget {
           style: const TextStyle(fontSize: 10),
         ),
         title: Text(book.title ?? ''),
-        isThreeLine: true,
         subtitle: Text(book.subTitle ?? ''),
+        visualDensity: VisualDensity.compact,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         dense: true,
       ),
     );

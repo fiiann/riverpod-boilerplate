@@ -13,7 +13,7 @@ class App extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     ref.listen(authNotifierProvider, (previous, next) {
       if (next.authStatus == const AppStartState.authenticated()) {
-        ref.read(routerProvider).go(HomeRoute.path);
+        ref.read(routerProvider).go(DashboardRoute.path);
       } else {
         ref.read(routerProvider).go(SignInRoute.path);
       }

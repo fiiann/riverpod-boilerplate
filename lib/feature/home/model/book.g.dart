@@ -9,7 +9,7 @@ part of 'book.dart';
 _$_Book _$$_BookFromJson(Map<String, dynamic> json) => _$_Book(
       id: json['id'] as String,
       title: json['title'] as String?,
-      subTitle: json['subTitle'] as String?,
+      subTitle: json['subtitle'] as String?,
       description: json['description'] as String?,
       preview: json['preview'] as String?,
     );
@@ -26,7 +26,7 @@ Map<String, dynamic> _$$_BookToJson(_$_Book instance) {
   }
 
   writeNotNull('title', instance.title);
-  writeNotNull('subTitle', instance.subTitle);
+  writeNotNull('subtitle', instance.subTitle);
   writeNotNull('description', instance.description);
   writeNotNull('preview', instance.preview);
   return val;
