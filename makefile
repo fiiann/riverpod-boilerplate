@@ -32,7 +32,8 @@ generate: ## Build the files for changes
 	dart run build_runner build --delete-conflicting-outputs
 
 generate-file:
-	dart run build_runner build --build-filter="lib/shared/route/app_router.g.dart"
+	dart run build_runner build --build-filter="lib/feature/auth/model/login_response.g.dart"
+	dart run build_runner build --build-filter="lib/feature/auth/model/login_response.freezed.dart"
 
 gen: ## Generates the assets
 	flutter packages pub run build_runner build

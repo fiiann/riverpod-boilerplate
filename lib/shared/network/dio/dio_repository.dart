@@ -11,7 +11,7 @@ final dioRepositoryProvider = Provider<Dio>((ref) {
     BaseOptions(
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
-        HttpHeaders.acceptHeader: 'application/json'
+        HttpHeaders.acceptHeader: 'application/json',
       },
     ),
   )

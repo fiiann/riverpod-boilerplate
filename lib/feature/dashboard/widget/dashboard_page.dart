@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/feature/home/widget/home_page.dart';
+import 'package:flutter_boilerplate/feature/profile/page/profile_page.dart';
 import 'package:flutter_boilerplate/shared/constants/app_theme.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -35,7 +36,7 @@ class DashboardPageState extends State<DashboardPage> {
             controller: pageController,
             children: const [
               HomePage(),
-              HomePage(),
+              ProfilePage(),
             ],
           ),
           bottomNavigationBar: buildBottomNavigationBar(),
@@ -56,9 +57,9 @@ class DashboardPageState extends State<DashboardPage> {
                 label: 'Dashboard',
               ),
               NavigationDestination(
-                icon: Icon(Icons.task_outlined),
-                selectedIcon: Icon(Icons.task),
-                label: 'Penugasan',
+                icon: Icon(Icons.account_circle_outlined),
+                selectedIcon: Icon(Icons.account_circle),
+                label: 'Profile',
               ),
             ],
             height: 60,
