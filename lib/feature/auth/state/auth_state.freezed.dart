@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthState {
   Status get status => throw _privateConstructorUsedError;
   AppStartState get authStatus => throw _privateConstructorUsedError;
+  LoginResponse? get user => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,9 +31,14 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({Status status, AppStartState authStatus, String? message});
+  $Res call(
+      {Status status,
+      AppStartState authStatus,
+      LoginResponse? user,
+      String? message});
 
   $AppStartStateCopyWith<$Res> get authStatus;
+  $LoginResponseCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -50,6 +56,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   $Res call({
     Object? status = null,
     Object? authStatus = null,
+    Object? user = freezed,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
@@ -61,6 +68,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.authStatus
           : authStatus // ignore: cast_nullable_to_non_nullable
               as AppStartState,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as LoginResponse?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -75,6 +86,18 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       return _then(_value.copyWith(authStatus: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LoginResponseCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $LoginResponseCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -84,10 +107,16 @@ abstract class _$$_AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
       __$$_AuthStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, AppStartState authStatus, String? message});
+  $Res call(
+      {Status status,
+      AppStartState authStatus,
+      LoginResponse? user,
+      String? message});
 
   @override
   $AppStartStateCopyWith<$Res> get authStatus;
+  @override
+  $LoginResponseCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -103,6 +132,7 @@ class __$$_AuthStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? authStatus = null,
+    Object? user = freezed,
     Object? message = freezed,
   }) {
     return _then(_$_AuthState(
@@ -114,6 +144,10 @@ class __$$_AuthStateCopyWithImpl<$Res>
           ? _value.authStatus
           : authStatus // ignore: cast_nullable_to_non_nullable
               as AppStartState,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as LoginResponse?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -128,6 +162,7 @@ class _$_AuthState implements _AuthState {
   const _$_AuthState(
       {this.status = Status.initial,
       this.authStatus = const AppStartState.initial(),
+      this.user,
       this.message});
 
   @override
@@ -137,11 +172,13 @@ class _$_AuthState implements _AuthState {
   @JsonKey()
   final AppStartState authStatus;
   @override
+  final LoginResponse? user;
+  @override
   final String? message;
 
   @override
   String toString() {
-    return 'AuthState(status: $status, authStatus: $authStatus, message: $message)';
+    return 'AuthState(status: $status, authStatus: $authStatus, user: $user, message: $message)';
   }
 
   @override
@@ -152,11 +189,13 @@ class _$_AuthState implements _AuthState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.authStatus, authStatus) ||
                 other.authStatus == authStatus) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, authStatus, message);
+  int get hashCode =>
+      Object.hash(runtimeType, status, authStatus, user, message);
 
   @JsonKey(ignore: true)
   @override
@@ -169,12 +208,15 @@ abstract class _AuthState implements AuthState {
   const factory _AuthState(
       {final Status status,
       final AppStartState authStatus,
+      final LoginResponse? user,
       final String? message}) = _$_AuthState;
 
   @override
   Status get status;
   @override
   AppStartState get authStatus;
+  @override
+  LoginResponse? get user;
   @override
   String? get message;
   @override

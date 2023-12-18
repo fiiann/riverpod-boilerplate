@@ -11,6 +11,7 @@ class LoginResponse with _$LoginResponse {
     required String id,
     required String email,
     required String password,
+    String? message,
   }) = _LoginResponse;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>

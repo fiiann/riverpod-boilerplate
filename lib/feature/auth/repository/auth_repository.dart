@@ -30,20 +30,23 @@ class AuthRepository implements AuthRepositoryProtocol {
 
         await tokenRepository.saveToken(loginResponse);
 
-        return const AuthState(
+        return AuthState(
           status: Status.success,
-          authStatus: AppStartState.authenticated(),
+          authStatus: const AppStartState.authenticated(),
+          user: loginResponse,
         );
       } else {
-        return const AuthState(
+        return AuthState(
           status: Status.failed,
-          authStatus: AppStartState.unauthenticated(),
+          authStatus: const AppStartState.unauthenticated(),
+          message: loginResponse.message,
         );
       }
     } catch (e) {
-      return const AuthState(
+      return AuthState(
         status: Status.failed,
-        authStatus: AppStartState.unauthenticated(),
+        authStatus: const AppStartState.unauthenticated(),
+        message: e.toString(),
       );
     }
     // return loginResponse.when(

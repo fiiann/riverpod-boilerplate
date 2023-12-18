@@ -25,6 +25,7 @@ mixin _$LoginResponse {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,7 +40,12 @@ abstract class $LoginResponseCopyWith<$Res> {
       _$LoginResponseCopyWithImpl<$Res, LoginResponse>;
   @useResult
   $Res call(
-      {String name, String avatar, String id, String email, String password});
+      {String name,
+      String avatar,
+      String id,
+      String email,
+      String password,
+      String? message});
 }
 
 /// @nodoc
@@ -60,6 +66,7 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
     Object? id = null,
     Object? email = null,
     Object? password = null,
+    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -82,6 +89,10 @@ class _$LoginResponseCopyWithImpl<$Res, $Val extends LoginResponse>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -95,7 +106,12 @@ abstract class _$$_LoginResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name, String avatar, String id, String email, String password});
+      {String name,
+      String avatar,
+      String id,
+      String email,
+      String password,
+      String? message});
 }
 
 /// @nodoc
@@ -114,6 +130,7 @@ class __$$_LoginResponseCopyWithImpl<$Res>
     Object? id = null,
     Object? email = null,
     Object? password = null,
+    Object? message = freezed,
   }) {
     return _then(_$_LoginResponse(
       name: null == name
@@ -136,6 +153,10 @@ class __$$_LoginResponseCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -148,7 +169,8 @@ class _$_LoginResponse implements _LoginResponse {
       required this.avatar,
       required this.id,
       required this.email,
-      required this.password});
+      required this.password,
+      this.message});
 
   factory _$_LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$$_LoginResponseFromJson(json);
@@ -163,10 +185,12 @@ class _$_LoginResponse implements _LoginResponse {
   final String email;
   @override
   final String password;
+  @override
+  final String? message;
 
   @override
   String toString() {
-    return 'LoginResponse(name: $name, avatar: $avatar, id: $id, email: $email, password: $password)';
+    return 'LoginResponse(name: $name, avatar: $avatar, id: $id, email: $email, password: $password, message: $message)';
   }
 
   @override
@@ -179,13 +203,14 @@ class _$_LoginResponse implements _LoginResponse {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
-                other.password == password));
+                other.password == password) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, avatar, id, email, password);
+      Object.hash(runtimeType, name, avatar, id, email, password, message);
 
   @JsonKey(ignore: true)
   @override
@@ -207,7 +232,8 @@ abstract class _LoginResponse implements LoginResponse {
       required final String avatar,
       required final String id,
       required final String email,
-      required final String password}) = _$_LoginResponse;
+      required final String password,
+      final String? message}) = _$_LoginResponse;
 
   factory _LoginResponse.fromJson(Map<String, dynamic> json) =
       _$_LoginResponse.fromJson;
@@ -222,6 +248,8 @@ abstract class _LoginResponse implements LoginResponse {
   String get email;
   @override
   String get password;
+  @override
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$$_LoginResponseCopyWith<_$_LoginResponse> get copyWith =>
