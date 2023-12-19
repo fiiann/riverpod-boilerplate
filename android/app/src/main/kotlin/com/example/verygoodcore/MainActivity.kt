@@ -1,4 +1,4 @@
-package com.example.verygoodcore.flutter_boilerplate
+package com.fian.portofolio
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyApA6kGP2C-LsRZbtCjsTuCf3WJZ2KtBeM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>354643909125</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.fian.riverpod</string>
+	<key>PROJECT_ID</key>
+	<string>garfianto-portofolio</string>
+	<key>STORAGE_BUCKET</key>
+	<string>garfianto-portofolio.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:354643909125:ios:64bad930a10337d95cda6c</string>
+</dict>
+</plist>
